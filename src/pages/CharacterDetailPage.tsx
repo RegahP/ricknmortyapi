@@ -20,15 +20,14 @@ function CharacterDetailPage() {
         setIsLoading(true);
         setError(null);
 
-        // 1) Fetch character
         const response = await fetch(`${API_BASE_URL}/character/${id}`);
         if (!response.ok) {
           throw new Error("Failed to fetch character");
         }
+
         const data: Character = await response.json();
         setCharacter(data);
 
-        // 2) Fetch first episode (extra API call)
         if (data.episode && data.episode.length > 0) {
           const firstEpisodeUrl = data.episode[0];
           const episodeResponse = await fetch(firstEpisodeUrl);
@@ -52,77 +51,95 @@ function CharacterDetailPage() {
   }, [id]);
 
   if (!id) {
-    return <p>Invalid character id.</p>;
+    return <p className="text-sm text-rose-600">Invalid character id.</p>;
   }
 
   if (isLoading && !character) {
-    return <p>Loading character...</p>;
+    return <p className="text-sm text-slate-500">Loading character...</p>;
   }
 
   if (error) {
     return (
-      <div>
-        <p>Something went wrong: {error}</p>
-        <Link to="/">← Back to list</Link>
+      <div className="space-y-3">
+        <p className="rounded-md border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-700">
+          Something went wrong: {error}
+        </p>
+        <Link to="/" className="text-sm text-emerald-600 hover:underline">
+          ← Back to list
+        </Link>
       </div>
     );
   }
 
   if (!character) {
     return (
-      <div>
-        <p>Character not found.</p>
-        <Link to="/">← Back to list</Link>
+      <div className="space-y-3">
+        <p className="text-sm text-slate-500">Character not found.</p>
+        <Link to="/" className="text-sm text-emerald-600 hover:underline">
+          ← Back to list
+        </Link>
       </div>
     );
   }
 
   return (
-    <section>
-      <Link to="/">← Back to list</Link>
+    <section className="space-y-4">
+      <Link to="/" className="text-sm text-emerald-600 hover:underline">
+        ← Back to list
+      </Link>
 
-      <div style={{ display: "flex", gap: "1rem", marginTop: "1rem", flexWrap: "wrap" }}>
+      <div className="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden flex flex-col md:flex-row">
         <img
           src={character.image}
           alt={character.name}
-          style={{ width: "250px", borderRadius: "8px" }}
+          className="w-full md:w-64 h-64 md:h-auto object-cover"
         />
 
-        <div>
-          <h2>{character.name}</h2>
+        <div className="p-4 md:p-6 flex-1 flex flex-col gap-2">
+          <h2 className="text-2xl font-semibold text-slate-800">
+            {character.name}
+          </h2>
 
-          {/* 4+ fields */}
-          <p>
-            <strong>Status:</strong> {character.status}
-          </p>
-          <p>
-            <strong>Species:</strong> {character.species}
-          </p>
-          <p>
-            <strong>Gender:</strong> {character.gender}
-          </p>
-          <p>
-            <strong>Origin:</strong> {character.origin?.name}
-          </p>
-          <p>
-            <strong>Location:</strong> {character.location?.name}
-          </p>
+          <div className="grid gap-x-6 gap-y-1 text-sm text-slate-700 sm:grid-cols-2">
+            <p>
+              <span className="font-medium">Status:</span> {character.status}
+            </p>
+            <p>
+              <span className="font-medium">Species:</span> {character.species}
+            </p>
+            <p>
+              <span className="font-medium">Gender:</span> {character.gender}
+            </p>
+            <p>
+              <span className="font-medium">Origin:</span>{" "}
+              {character.origin?.name}
+            </p>
+            <p>
+              <span className="font-medium">Location:</span>{" "}
+              {character.location?.name}
+            </p>
+            <p>
+              <span className="font-medium">Episodes:</span>{" "}
+              {character.episode.length}
+            </p>
+          </div>
 
-          {/* Field that uses a second API call */}
-          <p>
-            <strong>First seen in:</strong>{" "}
+          <p className="text-sm text-slate-700">
+            <span className="font-medium">First seen in:</span>{" "}
             {firstEpisodeName ? firstEpisodeName : "Unknown / loading"}
           </p>
 
-          {/* List field */}
-          <div style={{ marginTop: "1rem" }}>
-            <strong>Episodes ({character.episode.length}):</strong>
-            <ul>
+          <div className="mt-3">
+            <p className="text-xs font-medium text-slate-500 mb-1">
+              Episode URLs (first 5):
+            </p>
+            <ul className="max-h-32 overflow-auto rounded-md border border-slate-200 bg-slate-50 text-xs text-slate-600 p-2 space-y-1">
               {character.episode.slice(0, 5).map((epUrl) => (
-                <li key={epUrl}>{epUrl}</li>
+                <li key={epUrl} className="truncate">
+                  {epUrl}
+                </li>
               ))}
             </ul>
-            <small>Showing first 5 episode URLs for now.</small>
           </div>
         </div>
       </div>
