@@ -1,4 +1,11 @@
-export const ViewToggle = ({ viewMode, setViewMode }: { viewMode: "grid" | "list", setViewMode: (mode: "grid" | "list") => void }) => { return (
+import type { FC } from "react";
+
+type ViewModeToggleProps = {
+    viewMode: "grid" | "list";
+    setViewMode: (mode: "grid" | "list") => void;
+};
+
+export const ViewModeToggle: FC<ViewModeToggleProps> = ({ viewMode, setViewMode }: ViewModeToggleProps) => { return (
     <div className="inline-flex rounded-md shadow-sm border border-slate-200 overflow-hidden">
         <button
             type="button"

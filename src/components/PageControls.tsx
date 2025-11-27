@@ -1,4 +1,4 @@
-export const PageControls = ({page, setPage, totalPages}: {page: number, setPage: React.Dispatch<React.SetStateAction<number>>, totalPages: number}) => { 
+export const PageControls = ({page, totalPages, setPage}: {page: number, totalPages: number, setPage: React.Dispatch<React.SetStateAction<number>>}) => { 
     
       const handlePrevious = () => {
         if (page > 1) {

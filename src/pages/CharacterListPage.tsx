@@ -3,8 +3,10 @@ import type { Character, CharacterApiResponse } from "../types/ricknmorty";
 
 import { CharacterGridCard } from "../components/CharacterGridCard";
 import { CharacterListCard } from "../components/CharacterListCard";
-import { ViewToggle } from "../components/ViewToggle";
+import { ViewModeToggle } from "../components/ViewModeToggle";
 import { PageControls } from "../components/PageControls";
+import { SearchBar } from "../components/SearchBar";
+import { SearchFilter } from "../components/SearchFilter";
 
 const API_BASE_URL = "https://rickandmortyapi.com/api";
 
@@ -77,41 +79,17 @@ function CharacterListPage() {
         </div>
 
         {/* View mode toggle */}
-        <ViewToggle viewMode={viewMode} setViewMode={setViewMode} />
+        <ViewModeToggle viewMode={viewMode} setViewMode={setViewMode} />
       </header>
 
       {/* Search + filters */}
       <div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-4">
-        <input
-          type="text"
-          placeholder="Search by name..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full md:w-1/3 rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
-        />
+        
+        <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
-        <select
-          value={statusFilter}
-          onChange={(e) => setStatusFilter(e.target.value)}
-          className="rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
-        >
-          <option value="">Status: Any</option>
-          <option value="alive">Alive</option>
-          <option value="dead">Dead</option>
-          <option value="unknown">Unknown</option>
-        </select>
+        <SearchFilter filterType="status" filterValue={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}  />
+        <SearchFilter filterType="gender" filterValue={genderFilter} onChange={(e) => setGenderFilter(e.target.value)}  />
 
-        <select
-          value={genderFilter}
-          onChange={(e) => setGenderFilter(e.target.value)}
-          className="rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
-        >
-          <option value="">Gender: Any</option>
-          <option value="female">Female</option>
-          <option value="male">Male</option>
-          <option value="genderless">Genderless</option>
-          <option value="unknown">Unknown</option>
-        </select>
       </div>
 
       {/* Errors */}

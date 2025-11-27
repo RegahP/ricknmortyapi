@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="app flex flex-col min-h-screen">
       <header className="bg-white border-b border-slate-200">
-        <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
+        <div className="flex flex-col mx-auto px-4 py-4 items-center justify-between">
           <Link to="/" className="text-2xl font-bold text-emerald-600">
             Rick &amp; Morty Explorer
           </Link>
@@ -21,7 +21,7 @@ function App() {
       </main>
 
       <footer className="bg-white border-t border-slate-200">
-        <div className="max-w-5xl mx-auto px-4 py-3 text-xs text-slate-500">
+        <div className="max-w-max mx-auto px-4 py-3 text-xs text-slate-500">
           Rick &amp; Morty Explorer
         </div>
       </footer>
