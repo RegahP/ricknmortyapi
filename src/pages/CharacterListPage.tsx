@@ -87,8 +87,8 @@ function CharacterListPage() {
         
         <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
-        <SearchFilter filterType="status" filterValue={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}  />
-        <SearchFilter filterType="gender" filterValue={genderFilter} onChange={(e) => setGenderFilter(e.target.value)}  />
+        <SearchFilter filterType="status" filterValues={["alive", "dead", "unknown"]} filterValue={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}  />
+        <SearchFilter filterType="gender" filterValues={["female", "male", "genderless", "unknown"]} filterValue={genderFilter} onChange={(e) => setGenderFilter(e.target.value)}  />
 
       </div>
 
@@ -105,8 +105,8 @@ function CharacterListPage() {
       )}
 
       {viewMode === "grid" ? (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {characters.map((character) => (<CharacterGridCard key={character.id} character={character} />))}
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
+          {characters.slice(0, 20).map((character) => (<CharacterGridCard key={character.id} character={character} />))}
         </div>
       ) : (
         <div className="space-y-3">

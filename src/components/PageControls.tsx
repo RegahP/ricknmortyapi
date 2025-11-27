@@ -1,4 +1,12 @@
-export const PageControls = ({page, totalPages, setPage}: {page: number, totalPages: number, setPage: React.Dispatch<React.SetStateAction<number>>}) => { 
+import type { FC } from "react";
+
+type PageControlsProps = {
+    page: number;
+    totalPages: number;
+    setPage: React.Dispatch<React.SetStateAction<number>>;
+};
+
+export const PageControls: FC<PageControlsProps> = ({page, totalPages, setPage}: PageControlsProps) => { 
     
       const handlePrevious = () => {
         if (page > 1) {

@@ -1,4 +1,11 @@
-export const SearchBar = ({searchTerm, setSearchTerm}: {searchTerm: string, setSearchTerm: React.Dispatch<React.SetStateAction<string>>}) => { return (
+import type { FC } from "react";
+
+type SearchBarProps = {
+    searchTerm: string;
+    setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export const SearchBar: FC<SearchBarProps> = ({searchTerm, setSearchTerm}) => { return (
     <input
           type="text"
           placeholder="Search by name..."
