@@ -1,4 +1,6 @@
 import type { FC } from "react";
+import { FiGrid } from "react-icons/fi";
+import { FaList } from "react-icons/fa";
 
 type ViewModeToggleProps = {
     viewMode: "grid" | "list";
@@ -15,7 +17,7 @@ export const ViewModeToggle: FC<ViewModeToggleProps> = ({ viewMode, setViewMode 
                     : "bg-white text-slate-700"
                 }`}
         >
-            Grid
+            Grid <FiGrid className="inline-block ml-1" />
         </button>
         <button
             type="button"
@@ -25,7 +27,7 @@ export const ViewModeToggle: FC<ViewModeToggleProps> = ({ viewMode, setViewMode 
                     : "bg-white text-slate-700"
                 }`}
         >
-            List
+            List <FaList className="inline-block ml-1" />
         </button>
     </div>
 )

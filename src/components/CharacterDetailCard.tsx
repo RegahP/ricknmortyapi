@@ -1,65 +1,81 @@
 import { type Character } from "../types/ricknmorty";
+import { type Episode } from "../types/ricknmorty";
 import type { FC } from "react";
 
 type CharacterDetailCardProps = {
-    character: Character;
-    firstEpisodeName: string | null;
+  character: Character;
+  episodes: Episode | Episode[] | null;
 };
 
-export const CharacterDetailCard: FC<CharacterDetailCardProps> = ({ character, firstEpisodeName }) => { return (
-    <div className="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden flex flex-col md:flex-row">
+export const CharacterDetailCard: FC<CharacterDetailCardProps> = ({ character, episodes }) => {
+  const episodeList = episodes ? (Array.isArray(episodes) ? episodes : [episodes]) : [];
+
+  return (
+    <div className="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden flex flex-col md:flex-row gap-6 p-6">
+      <div className="shrink-0">
         <img
-          src={character.image}
+          src={character.image || "/placeholder.svg"}
           alt={character.name}
-          className="w-full md:w-auto h-auto md:h-auto object-cover"
+          className="w-64 h-64 rounded-lg object-cover bg-slate-200"
         />
+      </div>
+      
+      <div className="p-4 md:p-6 flex-1 flex flex-col gap-2">
+        {/* Info */}
+        <div className="flex-1">
+          <h2 className="text-2xl font-bold text-slate-900 mb-4">{character.name}</h2>
 
-        <div className="p-4 md:p-6 flex-1 flex flex-col gap-2">
-          <h2 className="text-2xl font-semibold text-slate-800">
-            {character.name}
-          </h2>
-
-          <div className="grid gap-x-6 gap-y-1 text-sm text-slate-700 sm:grid-cols-2">
-            <p>
-              <span className="font-medium">Status:</span> {character.status}
-            </p>
-            <p>
-              <span className="font-medium">Species:</span> {character.species}
-            </p>
-            <p>
-              <span className="font-medium">Gender:</span> {character.gender}
-            </p>
-            <p>
-              <span className="font-medium">Origin:</span>{" "}
-              {character.origin?.name}
-            </p>
-            <p>
-              <span className="font-medium">Location:</span>{" "}
-              {character.location?.name}
-            </p>
-            <p>
-              <span className="font-medium">Episodes:</span>{" "}
-              {character.episode.length}
-            </p>
-          </div>
-
-          <p className="text-sm text-slate-700">
-            <span className="font-medium">First seen in:</span>{" "}
-            {firstEpisodeName ? firstEpisodeName : "Unknown / loading"}
-          </p>
-
-          <div className="mt-3">
-            <p className="text-xs font-medium text-slate-500 mb-1">
-              Episode URLs (first 5):
-            </p>
-            <ul className="max-h-32 overflow-auto rounded-md border border-slate-200 bg-slate-50 text-xs text-slate-600 p-2 space-y-1">
-              {character.episode.slice(0, 5).map((epUrl) => (
-                <li key={epUrl} className="truncate">
-                  {epUrl}
-                </li>
-              ))}
-            </ul>
+          <div className="grid grid-cols-2 gap-4 mb-6">
+            <div>
+              <p className="text-xs font-medium text-slate-500 mb-1">Status</p>
+              <p className="text-sm text-slate-700">{character.status}</p>
+            </div>
+            <div>
+              <p className="text-xs font-medium text-slate-500 mb-1">Species</p>
+              <p className="text-sm text-slate-700">{character.species}</p>
+            </div>
+            <div>
+              <p className="text-xs font-medium text-slate-500 mb-1">Gender</p>
+              <p className="text-sm text-slate-700">{character.gender}</p>
+            </div>
+            <div>
+              <p className="text-xs font-medium text-slate-500 mb-1">Origin</p>
+              <p className="text-sm text-slate-700">{character.origin?.name}</p>
+            </div>
+            <div>
+              <p className="text-xs font-medium text-slate-500 mb-1">Location</p>
+              <p className="text-sm text-slate-700">{character.location?.name}</p>
+            </div>
           </div>
         </div>
+
+        <p className="text-sm text-slate-700">
+          <span className="font-medium">First seen in:</span>{" "}
+          {episodeList.length > 0 ? episodeList[0]?.name : "Unknown / loading"}
+        </p>
+
+        <div className="mt-6">
+          <p className="text-sm font-semibold text-slate-700 mb-3">Appears in episodes:</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+            {episodeList.map((ep) => (
+              <div
+                key={ep.id}
+                className="flex items-center gap-2 px-3 py-2 rounded-md bg-slate-50 border border-slate-200 hover:bg-slate-100 transition-colors"
+              >
+                <span className="text-xs font-medium text-slate-600 shrink-0 bg-slate-200 px-2 py-0.5 rounded">
+                  {ep.episode}
+                </span>
+                <span className="text-sm text-slate-700 truncate">{ep.name}</span>
+              </div>
+            ))}
+          </div>
+          {episodeList.length > 0 && (
+            <p className="text-xs text-slate-500 mt-2">
+              {episodeList.length} episode{episodeList.length !== 1 ? "s" : ""}
+            </p>
+          )}
+        </div>
       </div>
-)};
+    </div>
+  )
+};

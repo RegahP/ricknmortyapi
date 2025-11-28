@@ -1,5 +1,6 @@
 import { type Character } from "../types/ricknmorty";
 import { Link } from "react-router-dom";
+import { FaArrowRight } from "react-icons/fa6";
 
 export const CharacterListCard = ({ character }: { character: Character }) => {
     return (
@@ -38,7 +39,7 @@ export const CharacterListCard = ({ character }: { character: Character }) => {
                         to={`/character/${character.id}`}
                         className="inline-flex items-center text-xs font-medium text-emerald-600 hover:underline"
                     >
-                        View details →
+                        View details <FaArrowRight className="inline-block ml-1" />
                     </Link>
                 </div>
             </div>

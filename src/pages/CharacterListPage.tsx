@@ -106,7 +106,7 @@ function CharacterListPage() {
 
       {viewMode === "grid" ? (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
-          {characters.slice(0, 20).map((character) => (<CharacterGridCard key={character.id} character={character} />))}
+          {characters.map((character) => (<CharacterGridCard key={character.id} character={character} />))}
         </div>
       ) : (
         <div className="space-y-3">
