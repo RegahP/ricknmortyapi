@@ -42,6 +42,6 @@ export interface UseCharactersParams {
   genderFilter: string;
 }
 
-export interface UseCharacterParams {
+export interface UseCharacterDetailParams {
   id: string | undefined;
 }
