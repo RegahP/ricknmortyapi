@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import type { Character, CharacterApiResponse } from "../types/ricknmorty";
+import { useState } from "react";
 
 import { CharacterGridCard } from "../components/CharacterGridCard";
 import { CharacterListCard } from "../components/CharacterListCard";
@@ -7,64 +6,25 @@ import { ViewModeToggle } from "../components/ViewModeToggle";
 import { PageControls } from "../components/PageControls";
 import { SearchBar } from "../components/SearchBar";
 import { SearchFilter } from "../components/SearchFilter";
-
-const API_BASE_URL = "https://rickandmortyapi.com/api";
+import { useCharacters } from "../hooks/useCharacters";
 
 type ViewMode = "grid" | "list";
 
 function CharacterListPage() {
-  const [characters, setCharacters] = useState<Character[]>([]);
-  const [page, setPage] = useState<number>(1);
-  const [totalPages, setTotalPages] = useState<number>(1);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-
+  
   const [viewMode, setViewMode] = useState<ViewMode>("grid");
-
+  
+  const [page, setPage] = useState<number>(1);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [statusFilter, setStatusFilter] = useState<string>("");
   const [genderFilter, setGenderFilter] = useState<string>("");
 
-  // Fetch characters whenever page or filters change
-  useEffect(() => {
-    async function fetchCharacters() {
-      try {
-        setIsLoading(true);
-        setError(null);
-
-        const params = new URLSearchParams();
-        params.set("page", page.toString());
-        if (searchTerm.trim()) params.set("name", searchTerm.trim());
-        if (statusFilter) params.set("status", statusFilter);
-        if (genderFilter) params.set("gender", genderFilter);
-
-        const url = `${API_BASE_URL}/character?${params.toString()}`;
-
-        const response = await fetch(url);
-        if (!response.ok) {
-          if (response.status === 404) {
-            // No results for current filters
-            setCharacters([]);
-            setTotalPages(1);
-            setError("No characters found with current search/filters.");
-            return;
-          }
-          throw new Error("Failed to fetch characters");
-        }
-
-        const data: CharacterApiResponse = await response.json();
-        
-        setTotalPages(data.info.pages);
-        setCharacters(data.results);
-      } catch (err) {
-        setError((err as Error).message);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    fetchCharacters();
-  }, [page, searchTerm, statusFilter, genderFilter]);
+  const { characters, totalPages, isLoading, error } = useCharacters({
+    page,
+    searchTerm,
+    statusFilter,
+    genderFilter,
+  });
 
   return (
     <section className="space-y-4">
