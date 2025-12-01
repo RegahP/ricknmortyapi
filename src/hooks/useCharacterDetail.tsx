@@ -1,13 +1,9 @@
 import { useEffect, useState } from "react";
-import type { Character, Episode } from "../types/ricknmorty";
+import type { Character, Episode, UseCharacterParams } from "../types/ricknmorty";
 
 const API_BASE_URL = "https://rickandmortyapi.com/api";
 
-interface UseCharacterParams {
-  id: string | undefined;
-}
-
-export function useCharacter({ id }: UseCharacterParams) {
+export function useCharacterDetail({ id }: UseCharacterParams) {
     const [character, setCharacter] = useState<Character | null>(null);
     const [episodes, setEpisodes] = useState<Episode | Episode[] | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);

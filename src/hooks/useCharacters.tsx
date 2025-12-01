@@ -1,14 +1,7 @@
 import { useEffect, useState } from "react";
-import type { Character, CharacterApiResponse } from "../types/ricknmorty";
+import type { Character, CharacterApiResponse, UseCharactersParams } from "../types/ricknmorty";
 
 const API_BASE_URL = "https://rickandmortyapi.com/api";
-
-interface UseCharactersParams {
-  page: number;
-  searchTerm: string;
-  statusFilter: string;
-  genderFilter: string;
-}
 
 export function useCharacters({
   page,

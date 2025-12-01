@@ -1,12 +1,12 @@
 import { useParams } from "react-router-dom";
 import { CharacterDetailCard } from "../components/CharacterDetailCard";
 import { BackToList } from "../components/BackToList";
-import { useCharacter } from "../hooks/useCharacter";
+import { useCharacterDetail } from "../hooks/useCharacterDetail";
 
 function CharacterDetailPage() {
   const { id } = useParams<{ id: string }>();
   
-  const { character, episodes, isLoading, error } = useCharacter({ id });
+  const { character, episodes, isLoading, error } = useCharacterDetail({ id });
 
   if (!id) {
     return <p className="text-sm text-rose-600">Invalid character id.</p>;

@@ -20,7 +20,7 @@ export interface Character {
   origin: CharacterLocation;
   location: CharacterLocation;
   image: string;
-  episode: string[]; // list field (episode URLs)
+  episode: string[];
 }
 
 export interface CharacterApiResponse {
@@ -33,4 +33,15 @@ export interface Episode {
   name: string;
   air_date: string;
   episode: string;
+}
+
+export interface UseCharactersParams {
+  page: number;
+  searchTerm: string;
+  statusFilter: string;
+  genderFilter: string;
+}
+
+export interface UseCharacterParams {
+  id: string | undefined;
 }
