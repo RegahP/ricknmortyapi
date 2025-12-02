@@ -12,7 +12,7 @@ export function useCharacterDetail({ id }: UseCharacterDetailParams) {
     useEffect(() => {
         if (!id) return;
     
-        async function fetchCharacter() {
+        async function fetchCharacterDetail() {
           try {
             setIsLoading(true);
             setError(null);
@@ -44,7 +44,7 @@ export function useCharacterDetail({ id }: UseCharacterDetailParams) {
           }
         }
     
-        fetchCharacter();
+        fetchCharacterDetail();
       }, [id]);
 
       return { character, episodes, isLoading, error };

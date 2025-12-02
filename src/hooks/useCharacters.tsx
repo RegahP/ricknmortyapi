@@ -22,6 +22,7 @@ export function useCharacters({
 
         const params = new URLSearchParams();
         params.set("page", page.toString());
+        localStorage.setItem("currentPage", page.toString());
         if (searchTerm.trim()) params.set("name", searchTerm.trim());
         if (statusFilter) params.set("status", statusFilter);
         if (genderFilter) params.set("gender", genderFilter);

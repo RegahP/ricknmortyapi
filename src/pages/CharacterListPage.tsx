@@ -14,7 +14,10 @@ function CharacterListPage() {
   
   const [viewMode, setViewMode] = useState<ViewMode>("grid");
   
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState<number>(() => {
+    const savedPage = localStorage.getItem("currentPage");
+    return savedPage ? parseInt(savedPage, 10) : 1;
+  });
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [statusFilter, setStatusFilter] = useState<string>("");
   const [genderFilter, setGenderFilter] = useState<string>("");
@@ -39,16 +42,19 @@ function CharacterListPage() {
         </div>
 
         {/* View mode toggle */}
-        <ViewModeToggle viewMode={viewMode} setViewMode={setViewMode} />
+        <div className="text-right">
+          <ViewModeToggle viewMode={viewMode} setViewMode={setViewMode} />
+        </div>
       </header>
 
       {/* Search + filters */}
       <div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-4">
         
         <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-
-        <SearchFilter filterType="status" filterValues={["alive", "dead", "unknown"]} filterValue={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}  />
-        <SearchFilter filterType="gender" filterValues={["female", "male", "genderless", "unknown"]} filterValue={genderFilter} onChange={(e) => setGenderFilter(e.target.value)}  />
+        <div className="flex flex-row gap-3 self-center">
+          <SearchFilter filterType="status" filterValues={["alive", "dead", "unknown"]} filterValue={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}  />
+          <SearchFilter filterType="gender" filterValues={["female", "male", "genderless", "unknown"]} filterValue={genderFilter} onChange={(e) => setGenderFilter(e.target.value)}  />
+        </div>
 
       </div>
 
@@ -65,7 +71,7 @@ function CharacterListPage() {
       )}
 
       {viewMode === "grid" ? (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
           {characters.map((character) => (<CharacterGridCard key={character.id} character={character} />))}
         </div>
       ) : (

@@ -16,7 +16,7 @@ export const CharacterDetailCard: FC<CharacterDetailCardProps> = ({ character, e
         <img
           src={character.image || "/placeholder.svg"}
           alt={character.name}
-          className="w-64 h-64 rounded-lg object-cover bg-slate-200"
+          className="w-full h-full md:w-64 md:h-64 rounded-lg object-cover bg-slate-200"
         />
       </div>
       

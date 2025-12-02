@@ -21,16 +21,21 @@ export const CharacterGridCard = ({ character }: { character: Character }) => {
                 <p className="text-xs text-slate-500">
                     {character.gender} {character.species} ({character.status})
                 </p>
-                <p className="text-xs text-slate-500">
-                    Location: {character.location?.name}
-                </p>
-                <div className="mt-auto pt-2">
-                    <Link
-                        to={`/character/${character.id}`}
-                        className="inline-flex items-center text-xs font-medium text-emerald-600 hover:underline"
-                    >
-                        View details <FaArrowRight className="inline-block ml-1" />
-                    </Link>
+                <div className="flex flex-col gap-1 flex-1">
+                    <p className="text-xs text-slate-500">
+                        <b>Origin:</b> {character.origin?.name}
+                    </p>
+                    <p className="text-xs text-slate-500">
+                        <b>Location:</b> {character.location?.name}
+                    </p>
+                    <div className="self-end mt-auto pt-2">
+                        <Link
+                            to={`/character/${character.id}`}
+                            className="inline-flex items-center text-xs font-medium text-emerald-600 hover:underline"
+                        >
+                            View details <FaArrowRight className="inline-block ml-1" />
+                        </Link>
+                    </div>
                 </div>
             </div>
         </article>

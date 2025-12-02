@@ -8,7 +8,7 @@ type ViewModeToggleProps = {
 };
 
 export const ViewModeToggle: FC<ViewModeToggleProps> = ({ viewMode, setViewMode }: ViewModeToggleProps) => { return (
-    <div className="inline-flex rounded-md shadow-sm border border-slate-200 overflow-hidden">
+    <div className="align-middle inline-flex rounded-md shadow-sm border border-slate-200 overflow-hidden">
         <button
             type="button"
             onClick={() => setViewMode("grid")}
