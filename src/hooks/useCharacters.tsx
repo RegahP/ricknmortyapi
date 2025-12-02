@@ -32,6 +32,7 @@ export function useCharacters({
         const response = await fetch(url);
         if (!response.ok) {
           if (response.status === 404) {
+            //comment
             setCharacters([]);
             setTotalPages(1);
             setError("No characters found with current search/filters.");
