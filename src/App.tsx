@@ -7,7 +7,7 @@ function App() {
     <div className="app flex flex-col min-h-screen">
       <header className="bg-white border-b border-slate-200">
         <div className="flex flex-col mx-auto px-4 py-4 items-center justify-between">
-          <Link to="/" className="text-2xl font-bold text-emerald-600">
+          <Link to="/" className="text-2xl font-bold text-red-700">
             Rick &amp; Morty Explorer
           </Link>
         </div>

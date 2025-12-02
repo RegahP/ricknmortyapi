@@ -38,7 +38,7 @@ export function useCharacters({
             setError("No characters found with current search/filters.");
             return;
           }
-          throw new Error("Failed to fetch characters");
+          throw new Error("Error 404: Failed to fetch characters!");
         }
 
         const data: CharacterApiResponse = await response.json();

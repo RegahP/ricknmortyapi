@@ -31,7 +31,7 @@ export const CharacterGridCard = ({ character }: { character: Character }) => {
                     <div className="self-end mt-auto pt-2">
                         <Link
                             to={`/character/${character.id}`}
-                            className="inline-flex items-center text-xs font-medium text-emerald-600 hover:underline"
+                            className="inline-flex items-center text-xs font-medium text-red-700 hover:underline"
                         >
                             View details <FaArrowRight className="inline-block ml-1" />
                         </Link>

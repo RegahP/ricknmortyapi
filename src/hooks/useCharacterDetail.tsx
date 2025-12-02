@@ -19,7 +19,7 @@ export function useCharacterDetail({ id }: UseCharacterDetailParams) {
     
             const response = await fetch(`${API_BASE_URL}/character/${id}`);
             if (!response.ok) {
-              throw new Error("Failed to fetch character");
+              throw new Error("Error 404: Failed to fetch character details!");
             }
     
             const data: Character = await response.json();

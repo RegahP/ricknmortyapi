@@ -37,7 +37,7 @@ function CharacterListPage() {
             Characters
           </h2>
           <p className="text-sm text-slate-500">
-            Page {page} of {totalPages}.
+            Page {page} of {totalPages}
           </p>
         </div>
 
